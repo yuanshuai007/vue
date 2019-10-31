@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<div id='app'>
+	<div >
+			{{a}}
+		</div>
+	<!--要写双标签，不然后面的dom不会加载-->
+	<comp></comp>
+	<comp></comp>
+</div>
+<template id='temp'>
+  <div >
+		<div>{{count}}</div>
+		<div >
+			{{a}}
+		</div>
+		<input type="button" value='add' @click="add">
+  </div>
+</template>
+<script src="./vue.js"></script>
+<script>
+/* data---两种写法
+ * 1.直接写对象data:{}//所有实例都指向一个对象
+ * 2.用函数返回一个对象data(){return {}}//每个实例都有一个data对象
+ * 3.组件里面只能写第二种，写第一种会报错
+ * 4.vue里面都可以
+ * 
+ * data---作用域
+ * 1.组件模板里面的变量必须得依附在组件的this上，不能直接访问vue里面的data
+ * 2.组件里面的作用域和vue里面的作用域是隔绝的
+ * 3.组件通过this.$root可以访问到vue的作用域
+*/
+Vue.component('comp',{
+  template:'#temp',
+	data(){
+	  return {
+		  count:1,
+			a:this.$root.a
+		}
+	},
+	methods:{
+	  add(){
+		  this.count++
+		}
+	}
+})
+let vm=new Vue({
+  el:"#app",
+	data(){
+	  return {a:22}
+	}
+})
+console.log(vm)
+</script>
+
+</body>
+</html>

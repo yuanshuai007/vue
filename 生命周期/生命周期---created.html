@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<div id='app'>
+	<div ref='ref1'>
+			{{a}}
+		</div>
+	<!--要写双标签，不然后面的dom不会加载-->
+	<comp></comp>
+	<comp></comp>
+</div>
+<template id='temp'>
+  <div id='mycomp'>
+		<div>{{count}}</div>
+		<div ref='ref2'>ooo</div>
+		<input type="button" value='add' @click="add">
+  </div>
+</template>
+<script src="./vue.js"></script>
+<script>
+Vue.component('comp',{
+  template:'#temp',
+	//option "el" can only be used during instance creation with the `new` keyword.
+	//组件创建时不能使用el选项
+	//el:"#mycomp",
+	data(){
+	  return {
+		  count:1,
+			a:this.$root.a
+		}
+	},
+	methods:{
+	  add(){
+		  this.count++
+		}
+	},
+	mounted(){
+	  //console.log(this.$el)
+	}
+})
+let outer='outer'
+let vm=new Vue({
+  //el:"#app",//自动挂载
+	//template:默认情况下，模板会替换掉挂载元素，https://www.jb51.net/article/95878.htm
+	data(){
+	  return {a:''}
+	},
+	methods:{
+	  test(){}
+	},
+	created(){
+	  //1.可以访问一些重要的属性---数据属性和方法属性
+	  //console.log(this.a,this.test)
+		//2.没有挂载dom 不能访问关于dom的属性--$el,$refs为空对象
+		//console.log(this.$el,this.$refs)
+		//console.table(this)
+		//3.主要用途---
+		//(1)对data进行操作
+		//(2)请求数据
+		//(3)使用$nextTick进行dom操作---可以得到dom重新渲染之后的值
+    this.$nextTick(function(...rest){
+		  //console.log(rest)
+			//this.$refs.ref1.innerHTML='aa'
+			//console.log(this.$refs.ref1)
+		})
+		
+		
+	},
+	beforeMount(){
+	  console.log(this.el,this.$refs.ref1)
+	},
+	mounted(){
+	  //定时器异步和请求异步还是有区别
+	  setTimeout(()=>{
+		  this.a=2222
+		  console.log('timeout')
+		},1000)
+	  console.log('mounted')
+	},
+	updated(){
+	  console.log('updated')
+	}
+//手动挂载
+}).$mount('#app')
+//console.log(vm)
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+
+</head>
+<body>
+<!--
+1.input会复用---切换input里面的内容不会变
+2.加入class,id,key等标识符，则不会复用
+-->
+<div id='app'>
+	<template id='temp'>
+		<div id='d'>
+			<input v-if='display'/>
+			<input v-else/>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  message:'hello',
+			display:true,
+			type:'a'
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

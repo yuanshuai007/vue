@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<style>
+	[v-cloak]{display:none}
+</style>
+</head>
+<body>
+<!--指令的完整形式1. v-指令名:静态参数.修饰符   参数最好小写-->
+<!--指令的完整形式2. v-指令名:[动态参数].修饰符 因为最后会转化成小写-->
+<!--指令的简写 v-bind:简写:  v-on:简写成@-->
+<div id='app'>
+	<div :[Attr]="'dd'" v-cloak>
+		{{a}}
+	</div>
+	
+</div>
+<script src="./vue.js"></script>
+<script>
+let div = document.createElement('div');
+let count = 0
+for(let k in div) {
+    count++
+}
+console.dir(div)  // 231
+/*带参数的指令 v-bind:[arg] arg会被转成小写
+ *模板 → (编译)渲染函数 →(执行)虚拟DOM树 → 真实DOM
+*/
+let vm=new Vue({
+  el:"#app",
+	data(){
+	  return {
+		  a:22,
+			attr:'class'
+		}
+	},
+	beforeMount(){
+	  this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  console.log('updated')
+	}
+})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+
+</head>
+<body>
+<!--
+1.v-else:必须紧挨着v-if,中间不能有其他dom元素隔着
+2.template:可以作为看不见的包裹元素
+-->
+<div id='app'>
+	<template id='temp'>
+		<div>
+			<div v-if="type==='a'">
+				a
+			</div>
+			<div v-else-if="type==='b'">
+			  b
+      </div>
+			<div v-else-if="type==='c'">
+				c
+			</div>
+			<div v-else>
+				not a,b,c
+			</div>
+			
+			<template v-if='1'>
+			  <span class="">aaa</span>
+				<span class="">bbb</span>
+			</template>
+
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  message:'hello',
+			display:true,
+			type:'a'
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

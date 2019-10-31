@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+  .class1{
+	  background-color:yellow
+	}
+	.class2{
+	  color:red
+	}
+</style>
+</head>
+<body>
+<!--
+1.三目：根据一个变量在两个类之间切换
+:class='[isActive?class1:class2]'
+
+2.三目: 一个类存在，判断另一个类是否存在
+:class='[isActive?class1:'',class2]'
+判断class1是否存在，class2一直存在
+-->
+<div id='app'>
+	<template id='temp'>
+		<div>
+			<div :class='[isActive?class1:class2]'>
+				{{message}}
+			</div>
+		</div>
+	</template>
+</div>
+
+<script src="./vue.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  message:'hello',
+			isActive:true,
+			class1:'class1',
+			class2:'class2'
+		}
+	},
+	computed:{
+	},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

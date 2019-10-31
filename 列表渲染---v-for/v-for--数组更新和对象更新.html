@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+1.能直接改变原数组的api，会触发视图更新（两种情况除外）
+(1)vm.items[0]='newVal'   使用vm.$set或vm.items.splice()
+(2)vm.items.length=newLength  使用vm.items.splice()
+2.不能直接改变原数组的api，不会触发视图更新
+
+3.对象的属性是响应式的--修改能直接触发视图更新
+4.添加新的属性
+(1)添加单个属性 vm.$set(objs,key,val)
+(2)添加多个属性 vm.objs=Object.assign({},vm.objs,{d:4,e:5})
+-->
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<div v-for='d,i of items'>
+				{{i}}:{{d}}
+			</div>
+			<div >
+				...
+				...
+			</div>
+			<div v-for='d,key,i of objs'>
+				{{key}}:{{d}}
+			</div>
+     
+			
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  items:['a','b','c'],
+			objs:{
+			  a:1,
+				b:2,
+				c:3
+			},
+			show:true,
+			num:0
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>
