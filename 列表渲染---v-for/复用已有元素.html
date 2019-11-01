@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title></title>
-<style>
-	.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity .5s;
+		}
+
+		.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+		{
+			opacity: 0;
+		}
+	</style>
 </head>
 <body>
 <!--
@@ -19,8 +21,10 @@
 3.用transition验证元素是否复用
 (1)复用--dom元素一直在dom树上，不会触发transiton
 (2)没有复用,从dom树上删除，添加新的dom，触发transition
-4.只用当旧的vnode和新的vnode的key不相同时，能强制不复用
-所以key必须要是不一样的
+
+4.key的两点作用
+(1)在v-for里面可以排序，已复用的元素(文本不会复用)根据key的变化而变化
+(2)删除不存在的key，如果一个元素的key值发生了变化，旧有的元素会被删除
 -->
 <div id='app'>
 	<template id='temp'>
@@ -37,29 +41,29 @@
 				</transition>
 			</div>
 
-			<div v-for='d,i of arr' :key="keys[i]">
-			<transition name="fade">
-			  <label>
-			    {{d.val}}
-			  </label>
-			</transition>
-			<transition name="fade">
-				<input type='text' :key='inputKeys[i]'/>
-			</transition>
+			<div :key="keys[i]" v-for='d,i of arr'>
+				<transition name="fade">
+					<label>
+						{{d.val}}
+					</label>
+				</transition>
+				<transition name="fade">
+					<input :key='inputKeys[i]' type='text'/>
+				</transition>
 			</div>
 
-			<div >
+			<div>
 				....
 			</div>
-			<div >
+			<div>
 				....
 			</div>
-			<div >
+			<div>
 				....
 			</div>
 
-			 <ul>
-					<li v-for="item,i in list" v-tap="item" :key='item'>第{{ item }}个</li>
+			<ul>
+				<li :key='item' v-for="item,i in list" v-tap="item">第{{ item }}个</li>
 			</ul>
 		</div>
 	</template>
@@ -68,55 +72,49 @@
 <script src="../modules/vue.js"></script>
 <script>
 
-let vm=new Vue({
-  el:"#app",
-	template:'#temp',
-	data(){
-	  return {
-		  message:'hello',
-			display:true,
-			type:'a',
-			num:0,
-			arr:[
-			  {id:1,val:'a'},
-				{id:2,val:'b'},
-				{id:3,val:'c'},
-			],
-			list:[ 1,2,3,4,5 ],
-      list1:[ 'a','b','c','d' ],
-			keys:[1,2,3],
-			inputKeys:[1,2,3]
-		}
-	},
-	computed:{
-	  
-	},
-	watch:{
-	
-	},
-	methods:{
-	 
-	},
-	beforeMount(){
-	  //this.a=44
-	},
-	mounted(){
-	  //this.a=33
-	},
-	updated(){
-	  //console.log('updated')
-	},
-	directives:{
-		tap:{
-				bind:function(el,binding){
-				console.log(binding.value)
-				//第一次渲染时，打印的是1，2，3，4
-				//当list的值变成list1的值是，没有重新打印 
-				//也就是说，dom没有重新渲染，指令里接收的值还是1，2，3，4
+	let vm = new Vue({
+		el: "#app",
+		template: '#temp',
+		data() {
+			return {
+				message: 'hello',
+				display: true,
+				type: 'a',
+				num: 0,
+				arr: [
+					{id: 1, val: 'a'},
+					{id: 2, val: 'b'},
+					{id: 3, val: 'c'},
+				],
+				list: [1, 2, 3, 4, 5],
+				list1: ['a', 'b', 'c', 'd'],
+				keys: [1, 2, 3],
+				inputKeys: [1, 2, 3]
+			}
+		},
+		computed: {},
+		watch: {},
+		methods: {},
+		beforeMount() {
+			//this.a=44
+		},
+		mounted() {
+			//this.a=33
+		},
+		updated() {
+			//console.log('updated')
+		},
+		directives: {
+			tap: {
+				bind: function (el, binding) {
+					console.log(binding.value)
+					//第一次渲染时，打印的是1，2，3，4
+					//当list的值变成list1的值是，没有重新打印
+					//也就是说，dom没有重新渲染，指令里接收的值还是1，2，3，4
 				}
+			}
 		}
-	}
-})
+	})
 </script>
 </body>
 </html>

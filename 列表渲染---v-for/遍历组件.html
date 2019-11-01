@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style>
+		.fade-enter-active, .fade-leave-active {
+			transition: opacity .5s;
+		}
+
+		.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+		{
+			opacity: 0;
+		}
+	</style>
+</head>
+<body>
+<!--
+1 is：替换组件，用组件替换所在的dom
+-->
+<div id='app'>
+	<template id='temp'>
+		<div id='dd'>
+			<span is='comp'
+			  @remove='fn'
+			></span>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+  Vue.component('comp',{
+	  template:'\
+			<button v-on:click="$emit(\'remove\')">Remove</button>\
+		',
+		methods:{
+		  fn(){console.log(111)}
+		}
+	})
+	let vm = new Vue({
+		el: "#app",
+		template: '#temp',
+		data() {
+			return {
+				html:'\
+				  <div>aa</div>\
+				'
+			}
+		},
+		computed: {},
+		watch: {},
+		methods: {
+		  fn(){console.log(222)}
+		},
+		beforeMount() {
+			//this.a=44
+		},
+		mounted() {
+			//this.a=33
+		},
+		updated() {
+			//console.log('updated')
+		},
+		directives: {
+			
+		}
+	})
+</script>
+</body>
+</html>
