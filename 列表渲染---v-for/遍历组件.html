@@ -17,25 +17,48 @@
 <body>
 <!--
 1 is：替换组件，用组件替换所在的dom
+2 v-bind 就是把属性的值从静态变成动态的
+3 组件属性的作用就是接受值,但是受保护的属性不行，比如key
+4.表单里面的button type默认是submit，点击会触发submit事件
+submit事件触发会跳转，action为空，跳转向自己，即刷新
+prevent:阻止提交时，发生跳转
 -->
 <div id='app'>
 	<template id='temp'>
-		<div id='dd'>
-			<span is='comp'
-			  @remove='fn'
-			></span>
+		<div>
+			<form @submit.prevent='add'>
+				<label>
+				  todo item
+				</label>
+				<input v-model='todo'/>
+				<button>add</button>
+			</form>
+
+			<ul>
+				<li
+				  is='todoItemList'
+					v-for='d,i of todoItems'
+					:key='d.id'
+					:todo='d.todo'
+					@remove='todoItems.splice(i,1)'
+				></li>
+			</ul>
 		</div>
 	</template>
 </div>
 
 <script src="../modules/vue.js"></script>
 <script>
-  Vue.component('comp',{
+  Vue.component('todoItemList',{
 	  template:'\
+		  <li>\
+		  <span>{{todo}}</span>\
 			<button v-on:click="$emit(\'remove\')">Remove</button>\
+			</li>\
 		',
-		methods:{
-		  fn(){console.log(111)}
+		props:['todo'],
+		created(){
+			//console.log(this.a)
 		}
 	})
 	let vm = new Vue({
@@ -43,15 +66,28 @@
 		template: '#temp',
 		data() {
 			return {
-				html:'\
-				  <div>aa</div>\
-				'
+				todo:'',
+				todoItems:[
+				  {id:1,todo:'a'},
+					{id:2,todo:'b'}
+				]
 			}
 		},
 		computed: {},
 		watch: {},
 		methods: {
-		  fn(){console.log(222)}
+		  fn(arg){console.log(arg)},
+			foo(){
+			  console.log('foo')
+			},
+			add(){
+			  let id=this.todoItems[this.todoItems.length-1].id
+			  this.todoItems.push({
+				  id:++id,
+					todo:this.todo
+				})
+				console.log(this.todoItems)
+			}
 		},
 		beforeMount() {
 			//this.a=44

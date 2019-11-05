@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	.selfFather{
+	  height:50px;
+		background:yellow;
+	}
+	.selfChild{
+	  height:25px;
+		background:red;
+	}
+</style>
+</head>
+<body>
+<!--
+1 event.target:被事件绑定的dom
+2 capture:父元素先触发，子元素再触发，和冒泡相反
+3 passive:支持默认行为，不用去查询prevent，提高性能，多用于移动端的滚动
+https://www.jianshu.com/p/b12d0d3ad4c1
+
+4.按键修辞符
+(1)不支持大小写 要用自己写if(e.key==='A')
+(2)写多个是或的逻辑关系 keyup.a.b(按a或b都触发)
+(3)系统修辞符，不单独作用，写keycode
+(4)exact @click.ctrl 多按一个alt，shift也可触发
+@click.ctrl.exact 多按一个alt，shift就不触发
+https://www.cnblogs.com/danvic712/p/9966847.html
+-->
+<div id='app' >
+	<template id='temp'>
+		<div>
+			<div @click.capture='captureFatherFn'>
+				<div @click='captureChildFn'>
+					capture
+				</div>
+			</div>
+			<div @click='stopFatherFn'>
+				<div @click.stop='stopChildFn'>
+					stop
+				</div>
+			</div>
+			<div @click.ctrl.exact='selfFatherFn' class='selfFather'>
+				<div @click='selfChildFn' class='selfChild'>
+					self
+				</div>
+			</div>
+			<div @click='fn1'>
+				<a href='/' @click.prevent.self='fn2'>
+					prevent
+					<div @click='fn3'>
+						preventChild
+					</div>
+				</a>
+			</div>
+			<div @click.once='onceFn'>
+				once
+			</div>
+			<div >
+				<input @keyup.17='keyFn' />
+			</div>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+Vue.config.keyCodes = {
+  ab: [65, 66]
+}
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+	
+	},
+	methods:{
+		captureChildFn(){console.log('子元素')},
+		captureFatherFn(){console.log('父元素')},
+		stopChildFn(){console.log('子元素')},
+		stopFatherFn(){console.log('父元素')},
+		selfChildFn(){console.log('子元素')},
+		selfFatherFn(){console.log('父元素')},
+		preventChildFn(){console.log('子元素')},
+		fn1(){console.log('1')},
+		fn2(){console.log('2')},
+		fn3(){console.log('3')},
+		onceFn(){console.log('once')},
+		keyFn(e){console.log('key',e.key)},
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	.container>div{
+	  margin:20px 0;
+	}
+</style>
+</head>
+<body>
+<!--
+
+一 输入框：输入中文时，输入完了，才触发
+
+二 多选框:v-model就是获取value的值
+1  单个：绑布尔值
+2  多个：绑数组
+三  单选按钮
+1  绑字符串(收集的value只有一个)
+
+四  下拉菜单
+1  多选时，要按住ctrl
+-->
+<div id='app' >
+	<template id='temp'>
+		<div class='container'>
+			<div>
+				<input  v-model.lazy='val'/>
+				{{val}}
+			</div>
+			<div >
+				<textarea v-model='tval'></textarea>
+				<div style='white-space:pre-line'>{{tval}}</div>
+			</div>
+			<div >
+			  <label for='cc'>{{cval?'a':'b'}}</label>
+				<input id='cc' type='checkbox' v-model='cval'/>
+			</div>
+			<div >
+				<div v-for='val of cvals'>
+					<label :for='val.iden'>{{val.value}}</label>
+					<input :id='val.iden' :value='val.value' type='checkbox' v-model='carr'/>
+				</div>
+				{{carr}}
+			</div>
+			<div >
+				<div v-for='val of rvals'>
+					<label :for='val.iden'>{{val.value}}</label>
+					<input type='radio' :id='val.iden' :value='val.value' v-model='pick'/>
+				</div>
+				{{pick}}
+			</div>
+			<div >
+				<select v-model='select'>
+					<option v-for='val of selectArr' :value='val.value'
+					  :disabled="val.value===''"
+					>{{val.show}}</option>
+				</select>
+				{{select}}
+			</div>
+			<div >
+				<select multiple v-model='selects'>
+					<option v-for='val of selectsArr' :value="val.value">{{val.show}}</option>
+				</select>
+				{{selects}}
+			</div>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  val:'',
+			tval:'',
+			cval:false,
+			cvals:[
+			  {iden:'a',value:'A'},
+				{iden:'b',value:'B'},
+				{iden:'c',value:'C'}
+			],
+			rvals:[
+			  {iden:'a1',value:'A'},
+				{iden:'b1',value:'B'},
+				{iden:'c1',value:'C'}
+			],
+			pick:'',
+			carr:[],
+			select:'',
+			selectArr:[
+			  {show:'请选择',value:''},
+			  {show:'a',value:'A'},
+				{show:'b',value:'B'},
+				{show:'c',value:'C'}
+			],
+			selects:[],
+			selectsArr:[
+			  {show:'a',value:'A'},
+				{show:'b',value:'B'},
+				{show:'c',value:'C'}
+			]
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+	
+	},
+	methods:{
+	  inputFn(e){
+		  console.log(e.data)
+		}
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

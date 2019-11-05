@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+1 原生input，每按一下键盘都触发，包括中文输入时按的英文
+2 change事件 离开时，内容发生改变，触发
+-->
+<div id='app' >
+	<template id='temp'>
+	  <div>
+		  <input  @input='inputFn' @change='changeFn'/>
+			<input  @change='changeFn'/>
+			<input type='radio' />
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {}
+	},
+	computed:{
+	  
+	},
+	watch:{
+	
+	},
+	methods:{
+	  inputFn(e){
+		  console.log(e.data)
+		},
+		changeFn(e){
+		  console.log('aaa',e)
+		}
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>
