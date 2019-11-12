@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	.class1{
+	  font-size:20px;
+	}
+	.class2{
+	  color:yellow;
+	}
+</style>
+</head>
+<body>
+<!--
+组件上的两种的属性---区别在于有没有props接受
+1. props式
+(1)动态的   v-bind:属性='表达式' 
+(1)静态的   属性='字符串' 
+
+2. 属性='字符串'  非props式
+-->
+<div id='app' >
+	<template id='temp'>
+	  
+		<div >
+			<blog-post attr1='val'></blog-post>
+			<comp-class class='class2'></comp-class>
+			<base-input
+				v-model="username"
+				required
+				placeholder="Enter your username"
+			></base-input>
+		</div>
+		
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+Vue.component('blog-post',{
+  template:`
+	  <div>
+		  <span>{{attr1}}</span>
+		</div>
+	`,
+	props:['attr1']
+})
+Vue.component('comp-class',{
+  template:`
+	  <div class='class1'>
+		  <span>bbbbbbbbbb</span>
+		</div>
+	`,
+	
+})
+Vue.component('base-input', {
+  //将非props的属性，非默认式的放在根元素上
+  inheritAttrs: false,
+  props: ['label', 'value'],
+  template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="{placeholder:'enter',required:true}"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+      >
+    </label>
+  `
+})
+let vm=new Vue({
+  el:"#app",
+	//字符串模板：不存在这个限制
+	template:'#temp',
+	data(){
+	  return {
+		  val:undefined,
+			username:''
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+		
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

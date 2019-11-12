@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+一 插槽可以有多个，用name区分
+
+二 v-slot:name='props'
+props接受<slot></slot>的属性
+-->
+<div id='app' >
+	<template id='temp'>
+	  <div >
+		  <comp>
+			  <template v-slot:a>
+			    <span >aaaaaa</span>
+			  </template>
+				<template v-slot:b>
+			    <span >bbbbbbb</span>
+			  </template>
+				<template v-slot:c='props'>
+			    <span >{{props.sex+":"+props.age}}</span>
+			  </template>
+
+        <template v-slot:default='props'>
+					<span class="" >{{props.user}}</span>
+				</template>
+			</comp>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+Vue.component('comp',{
+  inheritAttrs:false,
+	props:['val'],
+  template:`
+	  <div>
+			<div class='aa'>
+			  <slot name='a'></slot>
+				<slot name='b'></slot>
+				<slot name='c' sex='male' age='18'></slot>
+
+				<slot user='ys'></slot>
+			</div>
+		</div>
+	`,
+	mounted(){
+	  //console.log(this.$attrs,this.$listeners)
+	}
+})
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  posts:[
+			  {title:'a',content:`aaaaa`},
+				{title:'b',content:`bbbbb`},
+				{title:'c',content:`ccccc`},
+			],
+			fontSize:2,
+			val:'ttt'
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+		val(newVal){
+		  console.log(newVal)
+		}
+	},
+	methods:{
+	  fn(){
+		  console.log(11)
+		}
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  let {a=0,b=0}={a:1}
+		console.log(a,b)
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+v-bind 他妈的就是绑属性用的
+1. :attr='express'
+2. v-bind='{attr:val}'
+
+v-on  他妈的就是帮事件的
+1. @click='fn'
+2. v-on="{click:fn}"
+
+1 组件的属性存在了$attrs里面,但是一旦props取走之后,$attrs就不在保存
+-->
+<div id='app' >
+	<template id='temp'>
+	  <div >
+		  <comp theme-dark='dark' val='val' @click='fn'>
+
+			</comp>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+Vue.component('comp',{
+  inheritAttrs:false,
+	props:['val'],
+  template:`
+	  <div>
+			<div :theme-dark="$attrs['theme-dark']" @click='$listeners.click'>
+			  kkkkkkk
+			</div>
+		</div>
+	`,
+	mounted(){
+	  console.log(this.$attrs,this.$listeners)
+	}
+})
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  posts:[
+			  {title:'a',content:`aaaaa`},
+				{title:'b',content:`bbbbb`},
+				{title:'c',content:`ccccc`},
+			],
+			fontSize:2,
+			val:'ttt'
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+		val(newVal){
+		  console.log(newVal)
+		}
+	},
+	methods:{
+	  fn(){
+		  console.log(11)
+		}
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

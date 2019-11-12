@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+
+-->
+<div id='app' >
+	<template id='temp'>
+	  <div >
+		  <keep-alive>
+		  <component :is="switchComp='comp2'"></component>
+			</keep-alive>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+Vue.component('comp1',{
+  template:`
+	  <div>
+			<div>
+			  aaaaaaa
+			</div>
+		</div>
+	`,
+	mounted(){
+	  console.log('aaaa')
+	}
+})
+Vue.component('comp2',{
+  template:`
+	  <div>
+			<div>
+			  bbbbbb
+			</div>
+		</div>
+	`,
+	mounted(){
+	  console.log('bbbb')
+	}
+})
+Vue.component('comp3',{
+  template:`
+	  <div>
+			<div>
+			  bbbbbb
+			</div>
+		</div>
+	`,
+	created(){
+	  console.log('ccc')
+	}
+})
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		  switchComp:'comp1'
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+		
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

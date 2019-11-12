@@ -26,8 +26,12 @@
 <div id='app' >
 	<template id='temp'>
 		<div class='container'>
+		  <div >
+				<input :value='tt' @input='tt=$event.target.value'/>
+				{{tt}}
+		  </div>
 			<div>
-				<input  v-model.lazy='val'/>
+				<input  v-model='val'/>
 				{{val}}
 			</div>
 			<div >
@@ -78,6 +82,7 @@ let vm=new Vue({
 	template:'#temp',
 	data(){
 	  return {
+		  tt:'tttt',
 		  val:'',
 			tval:'',
 			cval:false,
