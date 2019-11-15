@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<link rel="stylesheet" href="./modules/pikaday.css">
+</head>
+<body>
+
+
+<script>
+class A{
+  a=1
+	constructor(obj){
+	  //console.log(obj)
+		obj.fn.call(this)
+	}
+}
+function fn(){
+  console.log(1111)
+}
+let a=new A({
+  fn(){
+	  console.log(this)
+	}
+})
+</script>
+
+</body>
+</html>

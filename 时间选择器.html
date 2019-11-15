@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Pikaday - moment.js example</title>
+    <meta name="author" content="Ramiro Rikkert">
+    <link rel="stylesheet" href="./modules/pikaday.css">
+    <!--<link rel="stylesheet" href="./modules/site.css">-->
+</head>
+<!--
+1.  一个库依赖另一个库，先定义后引用
+2.  函数里面的this有两个指向
+(1)定义函数所在的对象
+(2)指向函数所在的对象 call,bind
+https://blog.csdn.net/ime33/article/details/53981595
+-->
+<body>
+
+    <label for="datepicker">Date:</label>
+    <br>
+    <input type="text" id="datepicker">
+    <div id="selected"></div>
+    <br>
+
+    <h2>moment.js先执行,pikaday依赖moment.js</h2>
+    <script src="./modules/moment.js"></script>
+    <script src="./modules/pikaday.js"></script>
+    <script>
+    // You can get and set dates with moment objects
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        //firstDay: 1,
+        //minDate: new Date(2000, 0, 1),
+        //maxDate: new Date(2020, 12, 31),
+        //yearRange: [2000,2020],
+        /*onSelect: function() {
+				    console.log(this)
+            var date = document.createTextNode(this.getMoment().format('Do MMMM YYYY') + ' ');
+            document.getElementById('selected').appendChild(date);
+        }*/
+    });
+    //picker.setMoment(moment().dayOfYear(366));
+    </script>
+</body>
+</html>

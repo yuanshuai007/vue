@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" href="../modules/pikaday.css">
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+一 依赖注入就是放大版的props  
+区别在于 依赖注入不是响应式的
+-->
+<div id='app' >
+	<template id='temp'>
+	  <div >
+		  <comp :val='val'></comp>
+			<comp1 ref='child'></comp1>
+			<!--<div @click='fn'>
+				kkkkkkk
+			</div>-->
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script src="../modules/pikaday.js"></script>
+<script src="../modules/moment.js"></script>
+<script>
+console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
+Vue.component('comp',{
+	inject:['cname'],
+	props:['val'],
+  template:`
+	  <div>
+			<div class='aa'>
+				{{cname}}
+			</div>
+	    <div>
+			  {{val}}
+			</div>
+		</div>
+	`,
+	mounted(){
+	  //console.log(this.$attrs,this.$listeners)
+	}
+})
+Vue.component('comp1',{
+  data(){
+	  return{
+		  i18n:{ // 本地化
+            previousMonth : '上个月',
+            nextMonth   : '下个月',
+            months      : ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+            weekdays    : ['周日','周一','周二','周三','周四','周五','周六'],
+            weekdaysShort : ['日','一','二','三','四','五','六'],
+			}
+		}
+	},
+  template:`
+	  <div>
+			<div class='aa'>
+				<input ref='myinput'/>
+			</div>
+		</div>
+	`,
+	methods:{
+	  focus(){
+		  this.$refs.myinput.focus()
+			new Pikaday({
+						field: this.$refs.myinput,
+				    //firstDay: 1,
+            //minDate: new Date('2000-01-01'),
+            //maxDate: new Date('2020-12-31'),
+            //yearRange: [2000,2020],
+						//i18n:this.i18n,
+						format: 'YYYY-MM-DD',
+						onSelect: function() {
+							console.log(moment().format('YYYY-MM-DD'));
+						}
+
+			})
+		}
+	}
+})
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+			val:'ttt'
+		}
+	},
+	provide(){
+		return {
+		  cname:this.val
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+		val(newVal){
+		  console.log(newVal)
+		}
+	},
+	methods:{
+	  fn(){
+		  console.log(11)
+		}
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  this.$refs.child.focus()
+		this.$on('hook:updated',()=>{console.log('kkkkk')})
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>
