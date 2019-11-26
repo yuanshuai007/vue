@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+不响应数据更新
+-->
+<div id='app' >
+	<template id='temp' >
+	  <div>
+		  <div id="" class="">
+				
+		  </div>
+			<input type="button" value="change" @click="">
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script src="../modules/vuex.js"></script>
+<script src="../modules/vuex.common.js"></script>
+<script>
+//console.log(mapState)
+function getData(){
+  return new Promise((resolve,reject)=>{
+	  setTimeout(()=>{
+		  resolve('ys')
+		},1000)
+	})
+}
+Vue.use(Vuex)
+const store=new Vuex.Store({
+  state:{
+	  data:'origin',
+	},
+	mutations:{
+	  mdData(state,arg){
+		  state.data=arg
+		},
+	},
+	actions:{
+	  async reqData({commit},arg){
+			commit('mdData',await getData())
+		}
+	}
+})
+console.log(store)
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	store,
+	data(){
+	  return {
+			//obj:{}
+		}
+	},
+	computed:{
+		...mapState(['data'])
+	},
+	watch:{
+		
+	},
+	methods:{
+	  ...mapActions(['reqData']),
+
+	},
+	created(){
+		console.log('req before',this.data)
+	  this.reqData().then(()=>{
+		  console.log(this.data)
+		})
+		
+	},
+	beforeMount(){
+	  //console.log(this.asyncVal())
+	},
+	mounted(){
+	  //console.log(this.a)
+	},
+	updated(){
+	  
+	}
+})
+
+</script>
+</body>
+</html>

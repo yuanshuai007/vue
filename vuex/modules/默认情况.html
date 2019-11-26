@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+默认情况下，只有state是局部的，getters,mutations,actions是全局的
+amodule:{
+  getters:{
+	  cval(state){
+		  return state.val+'--computed'
+		}
+	}
+}
+全局访问
+this.$store.getters.cval
+局部访问是错的
+this.$store.getters.a.cval //error
+-->
+<div id='app' >
+	<template id='temp' >
+	  <div>
+		  <div id="" class="">
+				{{a.val}}
+		  </div>
+			<div id="" class="">
+				{{cval}}
+			</div>
+			<input type="button" value="change" @click="amdVal">
+		</div>
+	</template>
+</div>
+
+<script src="../../modules/vue.js"></script>
+<script src="../../modules/vuex.js"></script>
+<script src="../../modules/vuex.common.js"></script>
+<script>
+//console.log(mapState)
+const aModule={
+  state:{
+	  val:'ays'
+	},
+	getters:{
+	  cval(state){
+		  return state.val+'--computed'
+		}
+	},
+	mutations:{
+	  amdVal(state){
+		  state.val='ys'
+		}
+	}
+}
+Vue.use(Vuex)
+const store=new Vuex.Store({
+  state:{
+	  val:11,
+	},
+	getters:{
+	  myval(state){
+		  return state.val+=1
+		}
+	},
+	mutations:{
+	  syncVal(state,arg){
+		  state.val=arg
+		},
+	},
+	actions:{
+	  asyncVal({commit},arg){
+			setTimeout(()=>{
+				commit('syncVal',arg)
+			},2000)
+			return 10
+		}
+	},
+	modules:{
+	  a:aModule
+	}
+})
+console.log(store)
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	store,
+	data(){
+	  return {
+			//obj:{}
+		}
+	},
+	computed:{
+		...mapState(['val','a']),
+		cval(){
+		  return this.$store.getters.cval
+		}
+		//...mapGetters(['a'])
+	},
+	watch:{
+		
+	},
+	methods:{
+	  ...mapActions(['asyncVal']),
+		...mapMutations(['amdVal'])
+	},
+	beforeMount(){
+	  //console.log(this.asyncVal())
+	},
+	mounted(){
+	  //console.log(this.a)
+	},
+	updated(){
+	  
+	}
+})
+
+</script>
+</body>
+</html>
