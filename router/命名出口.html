@@ -9,14 +9,14 @@
 </head>
 <body>
 <!--
-不响应数据更新
+
 -->
 <div id='app' >
 	<template id='temp' >
 	  <div>
-		  <router-link to='/a'>kkkk</router-link>
-			<router-link to='/b'>kkkk</router-link>
 			<router-view></router-view>
+			<router-view name='a'></router-view>
+			<router-view name='b'></router-view>
 		</div>
 	</template>
 </div>
@@ -26,6 +26,11 @@
 <script src="../modules/vue-router.js"></script>
 <script>
 //console.log(Vuex)
+const foo={
+	template:`
+	  <div>foo</div>
+	` 
+}
 const a={
 	template:`
 	  <div>aaa</div>
@@ -37,9 +42,11 @@ const b={
 	`  
 }
 const routes=[
-	{path:'',component:b},
-  {path:'/',component:a},
-	{path:'/b',component:b}
+	{path:'/',components:{
+	  default:foo,
+		a:a,
+		b:b
+	}},
 ]
 const router=new VueRouter({routes})
 const vm=new Vue({

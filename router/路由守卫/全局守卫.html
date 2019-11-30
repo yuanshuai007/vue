@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+
+-->
+<div id='app' >
+	<template id='temp' >
+	  <div>
+		  <div @click='jump'>
+				AAA
+		  </div>
+			<router-view></router-view>
+		</div>
+	</template>
+</div>
+
+<script src="../../modules/vue.js"></script>
+<script src="../../modules/vuex.js"></script>
+<script src="../../modules/vue-router.js"></script>
+<script>
+//console.log(Vuex)
+const a={
+	props:['id'],
+	template:`
+	  <div>{{id}}</div>
+	` ,
+	created(){
+	  //console.log(this)
+	}
+}
+const b={
+	template:`
+	  <div>bbb</div>
+	` ,
+}
+const routes=[
+  {path:'/a',component:a,props:route=>({id:route.query.id})},
+	{path:'/b',component:b},
+]
+const router=new VueRouter({routes})
+router.beforeEach((to,from,next)=>{
+  console.log(to)
+	if(to.path=='/b'){
+		console.log('b内部')
+	  next()
+	}else if(to.path=='/a'){
+		console.log('a内部')
+	  next('/b')
+	}
+})
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	router,
+	data(){
+	  return {
+			//obj:{}
+		}
+	},
+	computed:{
+		
+	},
+	watch:{
+		
+	},
+	methods:{
+	  jump(){
+		  this.$router.push({path:'/a',query:{id:10}},()=>{},(...rest)=>{
+			  console.log(rest)
+			})
+		}
+
+	},
+	beforeMount(){
+	  
+	},
+	mounted(){
+	  //console.log(history)
+	},
+	updated(){
+	  
+	}
+})
+
+</script>
+</body>
+</html>

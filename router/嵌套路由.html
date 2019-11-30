@@ -9,13 +9,13 @@
 </head>
 <body>
 <!--
-不响应数据更新
+
 -->
 <div id='app' >
 	<template id='temp' >
 	  <div>
-		  <router-link to='/a'>kkkk</router-link>
-			<router-link to='/b'>kkkk</router-link>
+		  <router-link to='/a'>AAA</router-link>
+			<router-link to='/b'>BBB</router-link>
 			<router-view></router-view>
 		</div>
 	</template>
@@ -28,7 +28,21 @@
 //console.log(Vuex)
 const a={
 	template:`
-	  <div>aaa</div>
+	  <div>
+		  <router-link to='/a/a'>子路由aa</router-link>
+			<router-link to='/a/b'>子路由ab</router-link>
+			<router-view></router-view>
+		</div>
+	` 
+}
+const aa={
+	template:`
+	  <div>child aa</div>
+	` 
+}
+const ab={
+	template:`
+	  <div>child ab</div>
 	` 
 }
 const b={
@@ -37,8 +51,11 @@ const b={
 	`  
 }
 const routes=[
-	{path:'',component:b},
-  {path:'/',component:a},
+  {path:'/a',component:a,children:[
+	  {path:'/',component:ab},
+	  {path:'a',component:aa},
+		{path:'b',component:ab},
+	]},
 	{path:'/b',component:b}
 ]
 const router=new VueRouter({routes})

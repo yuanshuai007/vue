@@ -9,13 +9,16 @@
 </head>
 <body>
 <!--
-不响应数据更新
+
 -->
 <div id='app' >
 	<template id='temp' >
 	  <div>
-		  <router-link to='/a'>kkkk</router-link>
-			<router-link to='/b'>kkkk</router-link>
+		  <div @click="jump">跳转到a</div>
+			<div @click="$router.replace({path:'/a/jj'})">跳转到a</div>
+			<div @click='$router.go(-1)'>
+				go			
+			</div>
 			<router-view></router-view>
 		</div>
 	</template>
@@ -28,8 +31,19 @@
 //console.log(Vuex)
 const a={
 	template:`
-	  <div>aaa</div>
-	` 
+	  <div>
+			{{$route.params.id}}
+		</div>
+	` ,
+	methods:{
+	  jump(){
+		  this.$router.push('/a/ys',()=>{
+				
+			},(...rest)=>{
+				console.log(rest)
+			})
+		}
+	}
 }
 const b={
 	template:`
@@ -37,8 +51,7 @@ const b={
 	`  
 }
 const routes=[
-	{path:'',component:b},
-  {path:'/',component:a},
+  {path:'/a/:id',component:a},
 	{path:'/b',component:b}
 ]
 const router=new VueRouter({routes})
@@ -58,8 +71,13 @@ const vm=new Vue({
 		
 	},
 	methods:{
-	  
-
+	  jump(){
+		  this.$router.push('/a/ys',()=>{
+				
+			},(...rest)=>{
+				console.log(rest)
+			})
+		}
 	},
 	beforeMount(){
 	  

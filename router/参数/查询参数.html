@@ -9,37 +9,36 @@
 </head>
 <body>
 <!--
-不响应数据更新
+
 -->
 <div id='app' >
 	<template id='temp' >
 	  <div>
-		  <router-link to='/a'>kkkk</router-link>
-			<router-link to='/b'>kkkk</router-link>
+		  <div @click='jump'>
+				AAA
+		  </div>
 			<router-view></router-view>
 		</div>
 	</template>
 </div>
 
-<script src="../modules/vue.js"></script>
-<script src="../modules/vuex.js"></script>
-<script src="../modules/vue-router.js"></script>
+<script src="../../modules/vue.js"></script>
+<script src="../../modules/vuex.js"></script>
+<script src="../../modules/vue-router.js"></script>
 <script>
 //console.log(Vuex)
 const a={
+	props:['id'],
 	template:`
-	  <div>aaa</div>
-	` 
+	  <div>{{id}}</div>
+	` ,
+	created(){
+	  console.log(this)
+	}
 }
-const b={
-	template:`
-	  <div>bbb</div>
-	`  
-}
+
 const routes=[
-	{path:'',component:b},
-  {path:'/',component:a},
-	{path:'/b',component:b}
+  {path:'/a',component:a,props:route=>({id:route.query.id})},
 ]
 const router=new VueRouter({routes})
 const vm=new Vue({
@@ -58,14 +57,16 @@ const vm=new Vue({
 		
 	},
 	methods:{
-	  
+	  jump(){
+		  this.$router.push({path:'/a',query:{id:10}})
+		}
 
 	},
 	beforeMount(){
 	  
 	},
 	mounted(){
-	  console.log(history)
+	  //console.log(history)
 	},
 	updated(){
 	  

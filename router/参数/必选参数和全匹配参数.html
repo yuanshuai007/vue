@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+1. 如果只是必选参数发生变化，组件会复用
+2. 用beforeRouteUpdate钩子函数，监测变化
+
+3. 参数可在this.$route.params里面看
+
+4.next的理解
+https://segmentfault.com/q/1010000012316727
+-->
+<div id='app' >
+	<template id='temp' >
+	  <div>
+		  <router-link to='/a/ys'>AAA</router-link>
+			<router-link to='/b-b'>BBB</router-link>
+			<router-link to='/c-c/ys'>CCC</router-link>
+			<router-view></router-view>
+		</div>
+	</template>
+</div>
+
+<script src="../../modules/vue.js"></script>
+<script src="../../modules/vuex.js"></script>
+<script src="../../modules/vue-router.js"></script>
+<script>
+//console.log(Vuex)
+const a={
+	template:`
+	  <div>aaa</div>
+	` ,
+	created(){
+	  console.log(this.$route)
+	},
+	beforeRouteUpdate(to,from,next){
+	  //console.log(to,from,next)
+	},
+}
+const b={
+	template:`
+	  <div>bbb</div>
+	`,
+	created(){
+	  console.log(this.$route)
+	}
+}
+const c={
+	template:`
+	  <div>ccc</div>
+	`,
+	created(){
+	  console.log(this.$route)
+	}
+}
+const routes=[
+  {path:'/a/:id',component:a},
+	{path:'/b-*',component:b},
+	{path:'/c-*/:id',component:b},
+]
+const router=new VueRouter({routes})
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	router,
+	data(){
+	  return {
+			//obj:{}
+		}
+	},
+	computed:{
+		
+	},
+	watch:{
+		
+	},
+	methods:{
+	  
+
+	},
+	beforeMount(){
+	  
+	},
+	mounted(){
+	  //console.log(history)
+	},
+	updated(){
+	  
+	}
+})
+
+</script>
+</body>
+</html>

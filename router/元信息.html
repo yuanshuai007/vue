@@ -9,7 +9,9 @@
 </head>
 <body>
 <!--
-不响应数据更新
+为什么要在matched里面找meta
+因为嵌套路由会有多条路由记录，比如/a/aa
+/a需要验证，那么/a/aa里面的meta就没有对象
 -->
 <div id='app' >
 	<template id='temp' >
@@ -28,7 +30,17 @@
 //console.log(Vuex)
 const a={
 	template:`
-	  <div>aaa</div>
+	  <div>
+		  <div>aaa</div>
+			<router-view></router-view>
+		</div>
+	` 
+}
+const aa={
+	template:`
+	  <div>
+      <div>child a</div>
+		</div>
 	` 
 }
 const b={
@@ -37,11 +49,20 @@ const b={
 	`  
 }
 const routes=[
-	{path:'',component:b},
-  {path:'/',component:a},
+  {path:'/a',component:a,meta:{required:true},children:[
+	  {path:'aa',component:aa}
+	]},
 	{path:'/b',component:b}
 ]
 const router=new VueRouter({routes})
+router.beforeEach((to,form,next)=>{
+	if(to.matched.some(val=>val.meta.required)){
+	  if(auth){
+		  next()
+		}
+	}
+	next()
+})
 const vm=new Vue({
   el:"#app",
 	template:'#temp',
@@ -65,7 +86,7 @@ const vm=new Vue({
 	  
 	},
 	mounted(){
-	  console.log(history)
+	  //console.log(history)
 	},
 	updated(){
 	  
