@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+组件名必须是双标签，单标签会导致后面的dom不加载
+
+大写的组件名只有在字符串模板中使用
+在dom只能用小写
+-->
+<div id='app' >
+	<template id='temp'>
+	  <div>
+		  <AA :level="1">Hello world!</AA>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+Vue.component('MyComp',{
+	name:'MyComp',
+  template:`
+	  <div>
+			aaa
+		</div>
+	`,
+})
+Vue.component('AA', {
+  render: function (createElement) {
+    return createElement(
+      'h' + this.level,   // 标签名称
+      this.$slots.default // 子节点数组
+    )
+  },
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+})
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	data(){
+	  return {
+		 
+		}
+	},
+	computed:{
+	  
+	},
+	watch:{
+		
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

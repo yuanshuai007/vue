@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+ .a{
+   color:yellow;
+ }
+ .b{
+   background:red;
+ }
+ .c{
+   font-size:50px;
+ }
+</style>
+</head>
+<body>
+<!--
+1.数组里面还能套一个数组
+class:['a',{b:true},['c']]
+-->
+<div id='app'>
+	<template id='temp'>
+		<div>
+		  <aa></aa>
+		</div>
+	</template>
+</div>
+<script src="../../../vue.js"></script>
+<script>
+const aa={
+	name:'aa',
+  render(h){
+	  return h('div',{
+		  class:['a',{b:true},[['c']]]
+		},['aaa'])
+	}
+
+}
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+console.log(vm)
+</script>
+</body>
+</html>

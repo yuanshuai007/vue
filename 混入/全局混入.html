@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" href="../modules/pikaday.css">
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+
+-->
+<div id='app' >
+	<template id='temp' >
+		<div>
+		  <comp1></comp1>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+const comp1={
+  template:`
+		<div>
+		  <div>{{title}}</div>		
+		</div>
+  `
+}
+Vue.mixin({
+  data(){
+	  return {
+		  title:'ys'
+		}
+	}
+})
+const vm=new Vue({
+	el:"#app",
+	template:'#temp',
+	components:{comp1},
+	computed:{
+	  
+	},
+	watch:{
+		
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  
+	},
+	mounted(){
+	 
+	},
+	updated(){
+	  
+	}
+})
+</script>
+</body>
+</html>

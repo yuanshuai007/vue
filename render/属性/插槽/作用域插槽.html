@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+ 
+</style>
+</head>
+<body>
+<!--
+1.假设是第三个参数，生成作用域插槽的内容，
+2.假如是字符串，则不能收到值
+3.假如是vnode数组，则必须有根元素，那么则无法直接写文本节点{{props.text}}
+4.所以，只能写在属性参数里面
+-->
+<div id='app'>
+	<template id='temp'>
+		<div>
+		  <aa></aa>
+		</div>
+	</template>
+</div>
+<script src="../../../vue.js"></script>
+<script>
+const bb={
+  name:'bb',
+	render(h){
+	  return h('div',[
+		  this.$scopedSlots.default({text:'默认值'}),
+			'上面是b组件的默认插槽,下面b组件的a插槽',
+			this.$scopedSlots.a({text:'来自插槽a的值'})
+		])
+	}
+}
+const aa={
+	name:'aa',
+  render(h){
+	  return h('div',[
+		  '下面是bb组件',
+		  h(bb,{
+			  scopedSlots:{
+				  //文本节点
+				  default:props=>props.text,
+					a:props=>h('div',props.text)
+				}
+			}) 
+		])
+	}
+
+}
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa,bb},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+console.log(vm)
+</script>
+</body>
+</html>

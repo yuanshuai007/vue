@@ -1,0 +1,17 @@
+文章
+1.模块开启命名空间后，享有独自的命名空间。
+https://www.cnblogs.com/sea-breeze/p/11321961.html
+
+我的理解
+1.什么叫命名空间，就是说在这个模块内，名字可以重复
+
+
+需要注意的地方
+1.store里面的值只能读，不能写
+无论是state,还是getters映射到computed里面的getter中
+
+2.在组件中,他是通过key映射成值
+...mapState('dog',{
+	dog_name:'name',
+	dog_age:'age'
+})

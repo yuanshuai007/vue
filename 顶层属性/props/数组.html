@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa :arr="['a','b','c']"></aa>
+		</div>
+	</template>
+</div>
+
+<script src="../../vue.js"></script>
+<script>
+const aa={
+  name:'aa',
+	props:{
+	  arr:Array
+	},
+	methods:{
+	  list(h){
+		  return this.arr.map(d=>h('div',{},d))
+		}
+	}
+}
+aa.render=function(h){
+  return h('div',{},this.list(h))
+}
+
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+})
+</script>
+
+</body>
+</html>

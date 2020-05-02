@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa></aa>
+		</div>
+	</template>
+</div>
+<div id='app1'>
+	<template id='temp1'>
+		<div >
+			<aa></aa>
+		</div>
+	</template>
+</div>
+<!--
+使用范围是整个页面
+-->
+<script src="../../vue.js"></script>
+<script>
+Vue.component('aa',{
+  render(h){
+	  return h('div','aaa')
+	}
+})
+
+new Vue({
+  el:"#app",
+	template:'#temp',
+})
+new Vue({
+  el:"#app1",
+	template:'#temp1',
+})
+
+
+</script>
+
+</body>
+</html>

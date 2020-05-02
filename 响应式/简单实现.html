@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+
+</style>
+</head>
+<body>
+<div id="app" class="">
+	
+</div>
+<script>
+/***vm.a-->watcher.data.a-->render
+1.第一次渲染，收集data
+2.以后data改动，重新渲染
+*/
+class Watcher{
+  constructor(){
+	  this.data={};
+		this.id=undefined;
+	}
+  collect(key,value){
+	  this.data[key]=value;
+	}
+	notify(key,val){
+	  this.data[key]=val;
+		clearTimeout(this.id)
+		this.id=setTimeout(this.render,0,this.data)
+	}
+	render(data){
+	  console.log('渲染函数执行一次')
+	  let html='';
+	  let app=document.getElementById('app')
+		for(let key in data){
+		  html+=`<div>${key}--${data[key]}</div>`
+		}
+		app.innerHTML=html
+	  document.body.appendChild(app)
+	}
+}
+
+function get_set(obj,watcher){
+	for(let key in obj){
+		let value=obj[key]
+		Object.defineProperty(obj,key,{
+			set(val){
+			  watcher.notify(key,val)
+				value=val;
+			},
+			get(){
+			  watcher.collect(key,value)
+				return value
+			},
+		})
+	} 
+}
+
+class Vue{
+  constructor(data){
+	  for(let key in data){
+		  this[key]=data[key]
+		}
+	  const watcher=new Watcher()
+		get_set(this,watcher)
+    watcher.render(this)
+	}
+}
+const vm=new Vue({a:1,b:2,c:3})
+vm.a=11
+let app=document.getElementById('app')
+console.log(app.innerHTML)//a:1
+</script>
+
+
+</body>
+</html>

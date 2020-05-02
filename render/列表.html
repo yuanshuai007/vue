@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+ 
+</style>
+</head>
+<body>
+<!--
+1.返回值是一个对象Vnode
+2.第三个参数是数组时,[vnode,vnode...]
+3.可以无限套数组，注意层级
+-->
+<div id='app'>
+	<template id='temp'>
+		<div>
+			<list :arr="['a','b','c']"></list>
+		</div>
+	</template>
+</div>
+
+
+
+<script src="../vue.js"></script>
+<script>
+const item={
+	name:'item',
+	props:{
+	  str:String
+	}
+}
+item.render=function(h){
+  return h('div',{},this.str)
+}
+
+const list={
+  name:'list',
+	props:{
+	  arr:Array
+	},
+	methods:{
+	  ct_item_prop(d){
+		  return {
+			  props:{
+				  str:d
+				}
+			}
+		},
+	  create_list(h){
+		  return this.arr.map(d=>h(item,this.ct_item_prop(d)))
+		}
+	}
+}
+list.render=function(h){
+  return h('div',{},this.create_list(h))
+}
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{list},
+	watch:{
+	
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+</body>
+</html>

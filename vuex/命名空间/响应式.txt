@@ -1,0 +1,40 @@
+1.什么是响应式?
+在js里面改变一个值，视图里面相应的值，也会改变
+
+2.state和getters里面定义的变量是响应式
+state里面定义一个变量，组件里面调用一个相应的mutation，视图里面的值发生改变
+
+//store里面
+state:{
+	name:'小黑',
+	age:10
+},
+mutations:{
+	increment(state,preload){
+		state.age=preload
+	}
+}
+
+//组件的js部分
+computed:{
+	...mapState('dog',{
+		dog_name:'name',
+		dog_age:'age'
+	}),
+},
+methods:{
+	...mapMutations('dog',{
+		dog_increment:'increment'
+	})
+}
+
+//组件的html部分
+function btn(h,that){
+  return h('button',{
+	  on:{
+		  click(){
+				that.dog_increment(12)
+			}
+		}
+	},'增加狗的年龄') 
+}

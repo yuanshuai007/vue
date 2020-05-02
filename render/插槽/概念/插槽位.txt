@@ -1,0 +1,11 @@
+组件对应插槽，dom对应插槽位
+
+h('div',{},[
+  this.$slots.default,
+  this.$slots.bb           
+])
+
+h('btn',{},[
+  h('aa',{slot:'default'}),
+  h('bb',{slot:'bb'})
+])

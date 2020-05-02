@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<bb></bb>
+			<cc></cc>
+		</div>
+	</template>
+</div>
+<!--
+没注册一个组件就有一个组件实例
+-->
+<script src="../../modules/vue.js"></script>
+<script>
+const aa={
+	name:'aa',
+	props:['val'],
+	template:`
+	  <div>
+		  <div>{{val}}</div>
+		</div> 
+	`,
+}
+const bb={
+	name:'bb',
+	components:{aa},//uid:2
+	template:`
+	  <div>
+		  <div>bbb</div>
+			<aa val='来自bb'></aa>
+		</div> 
+	`,
+}
+const cc={
+	name:'cc',
+	components:{aa},//uid:4
+	template:`
+	  <div>
+		  <div>cc</div>
+			<aa val='来自cc'></aa>
+		</div> 
+	`,
+}
+
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{bb,cc},
+})
+console.log(vm)
+
+</script>
+
+</body>
+</html>

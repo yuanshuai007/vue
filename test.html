@@ -2,26 +2,68 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
-<link rel="stylesheet" href="./modules/pikaday.css">
+<title></title>
+<style type="text/css">
+	
+</style>
 </head>
 <body>
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa name='1'></aa>
+			<aa name='2'></aa>
+		</div>
+	</template>
+</div>
 
-
+<script src="./vue.js"></script>
 <script>
-class A{
-  a=1
-	constructor(obj){
-	  //console.log(obj)
-		obj.fn.call(this)
+var MyComponent = Vue.extend({
+  template: '<div>Hello!</div>'
+})
+console.log(MyComponent)
+const aa={
+	name:'aa',
+	template:`
+	  <div>
+		  <div :class={cls_a:cls_a_is}>aaa</div>
+			<button @click='cls_a_is=!cls_a_is'>切换类</button>
+		</div> 
+	`,
+	props:{
+	  name:{
+		  type:String,
+			required:true
+		}
+	},
+	data(){
+	  return {
+		  cls_a_is:true
+		}
+	},
+	mounted(){
+	  this.$on('on_cls_a',(name,cls_a_is)=>{
+			console.log(name,cls_a_is)
+			if(this.name==name){
+			  this.cls_a_is=cls_a_is
+			}
+		})
 	}
 }
-function fn(){
-  console.log(1111)
-}
-let a=new A({
-  fn(){
-	  console.log(this)
+const ys=Vue.component('bb',aa)
+console.log(ys)
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	mounted(){
+		console.log(this.$children)
+	  this.$children.forEach(d=>{
+		  if(d.$options.name=='aa'){
+			  d.$emit('on_cls_a','1',false)
+			}
+		})
 	}
 })
 </script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa @input='value=$event'></aa>
+			<div id="" class="">
+			  {{value}}
+			</div>
+		</div>
+	</template>
+</div>
+
+<script src="../../vue.js"></script>
+<script>
+//触发组件上的自定义事件
+//that.$emit('input',e.target.value)
+function input(h,value,that){
+  return h('input',{
+	  domProps:{
+		  value:value
+		},
+	  on:{
+		  input(e){
+			  that.$emit('input',e.target.value)
+			}
+		}
+	})
+}
+const aa={
+  render(h){
+	  return h('div',[
+		  input(h,'输入框的初始值',this)
+		])
+	}
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	data(){
+	  return {
+		  value:'初始值'
+		}
+	},
+})
+
+</script>
+
+</body>
+</html>

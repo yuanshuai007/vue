@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa></aa>
+		</div>
+	</template>
+</div>
+
+<script src="../../vue.js"></script>
+<script>
+function btn(h,value,handle){
+  return h('button',{
+	  on:{
+		  'click':handle
+		}
+	},value)
+}
+const aa={
+  methods:{
+	  handle(){
+		  console.log('点击')
+		}
+	},
+  render(h){
+	  return h('div',[
+		  btn(h,'点击',this.handle)
+		])
+	}
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa}
+})
+
+</script>
+
+</body>
+</html>

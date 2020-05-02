@@ -1,0 +1,7 @@
+key是vnode的唯一标识符
+
+没有key
+相同位置的vnode进行diff
+
+有key
+相同key值的vnode进行diff

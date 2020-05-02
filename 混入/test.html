@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" href="../modules/pikaday.css">
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+
+-->
+<div id='app' >
+	<template id='temp' >
+	  <div>
+		  <aa></aa>
+		</div>
+	</template>
+</div>
+
+<script src="../modules/vue.js"></script>
+<script>
+const mixin=Vue.extend({
+	data(){
+	  return {
+		  title:'ys'
+		}
+	}
+})
+console.log(mixin);
+const aa={
+	mixins:[mixin],
+	render(h){
+	  return h('div',this.title)
+	}
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	computed:{
+	  
+	},
+	watch:{
+		
+	},
+	methods:{
+	 
+	},
+	beforeMount(){
+	  
+	},
+	mounted(){
+	 
+	},
+	updated(){
+	  
+	}
+})
+</script>
+</body>
+</html>

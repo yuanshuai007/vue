@@ -9,7 +9,8 @@
 </head>
 <body>
 <!--
-
+{path:'/a/:id?',component:a,props:true},
+必选参数后加一个?变可选
 -->
 <div id='app' >
 	<template id='temp' >
@@ -28,30 +29,15 @@
 const a={
 	props:['id'],
 	template:`
-	  <div>{{id}}</div>
+	  <div>参数:{{id}}</div>
 	` ,
 	created(){
 	  console.log(this)
 	}
 }
-const b={
-	template:`
-	  <div>bbb</div>
-	`,
-	created(){
-	  console.log(this.$route)
-	}
-}
-const c={
-	template:`
-	  <div>ccc</div>
-	`,
-	created(){
-	  console.log(this.$route)
-	}
-}
+
 const routes=[
-  {path:'/a',component:a,props:{id:'yyyyy'}},
+  {path:'/a/:id?',component:a,props:true},
 ]
 const router=new VueRouter({routes})
 const vm=new Vue({

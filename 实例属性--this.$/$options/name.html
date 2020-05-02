@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+</style>
+</head>
+<body>
+<!--
+组件局部注册时，没有name不会自动添加
+组件全局注册时，没有name会将id作为name自动添加
+如果组件有name，以组件的name为准
+-->
+
+<div id='app'>
+	<template id='temp'>
+		<div id="" class="">
+			<aa></aa>
+		</div>
+	</template>
+</div>
+<script src="../../modules/vue.js"></script>
+<script src="../../modules/vue-axios-plugin.umd.js"></script>
+<script>
+const aa={
+	//name:'ab',
+  template:`
+	  <div>
+		  aaaa
+		</div>
+	`,
+	created(){
+	  console.log(this)
+	},
+
+}
+//Vue.component('aa',aa)
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	data(){
+	  return {
+			
+		}
+	},
+	computed:{
+	 
+	},
+	watch:{
+	  
+	},
+	methods:{
+	  
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+</script>
+
+</body>
+</html>

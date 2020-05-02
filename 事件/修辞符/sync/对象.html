@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<!--
+1.跟传值一模一样
+-->
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa :obj.sync='obj'></aa>
+			<div v-for='d of obj' :key='d'>
+				{{d}}
+			</div>
+		</div>
+	</template>
+</div>
+
+<script src="../../../vue.js"></script>
+<script>
+function btn(h,value,handle){
+  return h('button',{
+	  on:{
+		  'click':handle
+		}
+	},value)
+}
+const aa={
+  props:['title'],
+	data(){
+	  return {
+		  val:{
+			  a:'aa',
+				b:'bb'
+			}
+		}
+	},
+  methods:{
+	  handle(){
+		  this.$emit('update:obj',this.val)
+		}
+	},
+  render(h){
+	  return h('div',[
+		  btn(h,'子组件向父组件传值',this.handle)
+		])
+	}
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	data(){
+	  return {
+		  obj:{
+			  a:'a',
+				b:'b'
+			}
+		}
+	},
+})
+
+</script>
+
+</body>
+</html>

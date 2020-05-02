@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+    <aa></aa>
+  </template>
+</div>
+<!--
+1.beforeCreate时，创建了this,
+
+-->
+<script src="../../vue.js"></script>
+<script>
+Vue.component('aa',{
+  template:`
+	  <div>aaa</div>
+	`,
+	data(){
+	  console.log('data');
+	  return {
+		 
+		}
+	},
+	beforeCreate(){
+	  console.log('beforeCreated')
+	},
+	created(){
+	  console.log('created')
+	}
+})
+let vm=new Vue({
+  el:"#app",
+	template:'#temp'
+})
+console.log(vm)
+</script>
+
+</body>
+</html>

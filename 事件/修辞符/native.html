@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<!--
+1.native实际上是把原生事件绑到了组件的根元素上、
+
+2.实际上，组件只能绑自定义事件
+
+3.把passive改成all就可以看到
+-->
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa @click.native='fn'></aa>
+		</div>
+	</template>
+</div>
+
+<script src="../../vue.js"></script>
+<script>
+const aa={
+  render(h){
+	  return h('div',[
+		  'aaa'
+		])
+	}
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	methods:{
+	  fn(){
+		  console.log(111)
+		}
+	}
+})
+
+</script>
+
+</body>
+</html>

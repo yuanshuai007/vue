@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+<div id='app'>
+	<template id='temp'>
+	  <div id="" class="">
+			<aa v-if='cdt'></aa>
+			<input type="button" value="toggle" @click="cdt=!cdt">	
+	  </div>
+	</template>
+</div>
+
+<script src="../../vue.js"></script>
+<script>
+/*
+1.v-if（在组件上）可以切换组件的有无
+2.可以触发destroyed
+*/
+const aa={
+  render(h){
+	  console.log('aa的render')
+		return h('div','aaa')
+		 
+	},
+	destroyed(){
+	  console.log('aaa')
+	  //localStorage.setItem('a','a')
+	}
+}
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	data(){
+	  return {
+		  cdt:true
+		}
+	},
+	methods:{
+	  
+	},
+  
+
+})
+
+</script>
+</body>
+</html>

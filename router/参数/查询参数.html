@@ -9,7 +9,7 @@
 </head>
 <body>
 <!--
-
+1.地址栏的表现形式  ?id=10&name=ys
 -->
 <div id='app' >
 	<template id='temp' >
@@ -17,6 +17,7 @@
 		  <div @click='jump'>
 				AAA
 		  </div>
+			<router-link to='/b?id=6&name=ys'>BBB</router-link>
 			<router-view></router-view>
 		</div>
 	</template>
@@ -36,9 +37,24 @@ const a={
 	  console.log(this)
 	}
 }
-
+const b={
+	props:{
+	  search_params:{
+		  type:Object,
+			default:{}
+		}
+	},
+	template:`
+	  <div>bbb</div>
+	` ,
+	created(){
+	  console.log(this.search_params)
+	}
+}
 const routes=[
   {path:'/a',component:a,props:route=>({id:route.query.id})},
+	//以对象的形式的放入props
+	{path:'/b',component:b,props:route=>({search_params:route.query})}
 ]
 const router=new VueRouter({routes})
 const vm=new Vue({

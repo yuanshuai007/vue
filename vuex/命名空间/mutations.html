@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+就是用来改变state里面的值
+-->
+<div id='app' >
+	<template id='temp' >
+	  <aa></aa>
+	</template>
+</div>
+
+<script src="../../modules/vue.js"></script>
+<script src="../../modules/vuex.js"></script>
+<script src="../../modules/vuex.common.js"></script>
+<script>
+Vue.use(Vuex)
+const dog={
+  namespaced:true,
+  state:{
+	  name:'小黑',
+		age:10
+	},
+	getters:{
+	  desc(state){
+		  return '狗的名字:'+state.name
+		}
+	},
+	mutations:{
+	  increment(state,preload){
+		  state.age=preload
+		},
+		changeName(state,name){
+		  state.name=name
+		}
+	}
+}
+const store=new Vuex.Store({
+	modules:{dog}
+})
+function btn(h,that){
+  return h('button',{
+	  on:{
+		  click(){
+			  //console.log(that.dog_name)
+				that.dog_increment(12)
+				that.dog_changeName('小白')
+			}
+		}
+	},'调用两个mutations') 
+}
+const aa={
+  render(h){ 
+	  return h('div',[
+		  this.dog_name,
+		  this.dog_age,
+			btn(h,this)
+		])
+	},
+	computed:{
+	  ...mapState('dog',{
+		  dog_name:'name',
+			dog_age:'age'
+		}),
+	},
+	methods:{
+	  ...mapMutations('dog',{
+		  dog_increment:'increment',
+			dog_changeName:'changeName'
+		})
+	}
+}
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	store,
+	data(){
+	  return {
+			//obj:{}
+		}
+	},
+	beforeMount(){
+	  //console.log(this.asyncVal())
+	},
+	mounted(){
+	  //console.log(this.a)
+	},
+	updated(){
+	  
+	}
+})
+
+</script>
+</body>
+</html>

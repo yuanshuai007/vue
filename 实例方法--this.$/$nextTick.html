@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style>
+</style>
+</head>
+<body>
+<!--
+等dom更新完了，在回调
+-->
+
+<div id='app'>
+	<template id='temp'>
+		<div id="" class="">
+			<input type="button" value="get_val" @click="get_val">
+			<input type="button" value="updated_get_val" @click="updated_get_val">
+			<div ref='d'>
+				{{val}}
+			</div>
+		</div>
+	</template>
+</div>
+<script src="../modules/vue.js"></script>
+<script src="../modules/vue-axios-plugin.umd.js"></script>
+<script>
+
+let vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	//components:{aa,bb},
+	data(){
+	  return {
+			val:'aa'
+		}
+	},
+	computed:{
+	 
+	},
+	watch:{
+	  
+	},
+	methods:{
+		get_val(){
+		  this.val='bb'
+			console.log(this.$refs.d.innerText)
+		},
+	  updated_get_val(){
+		  this.val='bb'
+			this.$nextTick(()=>{
+			  console.log(this.$refs.d.innerText)
+			})
+		}
+	},
+	beforeMount(){
+	  //this.a=44
+	},
+	mounted(){
+	  //this.a=33
+	},
+	updated(){
+	  //console.log('updated')
+	}
+})
+console.log(vm)
+</script>
+
+</body>
+</html>

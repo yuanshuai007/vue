@@ -34,22 +34,7 @@ const a={
 	  console.log(this)
 	}
 }
-const b={
-	template:`
-	  <div>bbb</div>
-	`,
-	created(){
-	  console.log(this.$route)
-	}
-}
-const c={
-	template:`
-	  <div>ccc</div>
-	`,
-	created(){
-	  console.log(this.$route)
-	}
-}
+
 const routes=[
   {path:'/a/:id',component:a,props:true},
 ]

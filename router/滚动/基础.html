@@ -1,0 +1,133 @@
+<!DOCTYPE	html>
+<html>
+<head>
+<meta	charset="utf-8">
+<title></title>
+<style>
+	
+</style>
+</head>
+<body>
+<!--
+
+-->
+<div id='app'	>
+	<template	id='temp'	>
+		<div >
+			<div style='height:100px'>
+				kkkkkkk
+			</div>
+			<router-link to='/a/#bb'>AAA</router-link>
+			<div style='height:1000px'>
+				kkkkkkk
+			</div>
+			<router-view></router-view>	
+		</div>
+	</template>
+</div>
+
+<script	src="../../modules/vue.js"></script>
+<script	src="../../modules/vuex.js"></script>
+<script	src="../../modules/vue-router.js"></script>
+<script>
+//console.log(Vuex)
+const	a={
+	props:['id'],
+	template:`
+		<div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div id='bb'>bbb</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>	
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>	
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div>aaa</div>
+			<div id='dd'>aaa</div>
+		</div>
+	`	,
+	created(){
+		var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+		console.log(scrollTop)			
+	}
+}
+const	routes=[
+	{path:'/a',component:a}
+]	
+const	router=new VueRouter({
+	routes,
+	scrollBehavior(to,from,savedPosition){
+		if(savedPosition){
+		  console.log(savedPosition)
+		}
+	  console.log(to)
+		if(to.hash){
+		  //return {selector:to.hash}
+		}
+		return false
+
+	}
+})
+
+const	vm=new Vue({
+	el:"#app",
+	template:'#temp',
+	router,
+	data(){
+		return {
+			//obj:{}
+		}
+	},
+	computed:{
+		
+	},
+	watch:{
+		
+	},
+	methods:{
+		handleScroll () {
+			var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+			console.log(scrollTop)
+		},
+
+	},
+	beforeMount(){
+		
+	},
+	mounted(){
+		window.addEventListener('scroll', this.handleScroll)
+	},
+	updated(){
+		
+	}
+})
+
+</script>
+</body>
+</html>

@@ -9,13 +9,15 @@
 </head>
 <body>
 <!--
-可以有默认值
+1.定义的时候，可以写多次
 -->
 <div id='app' >
 	<template id='temp'>
 	  <div >
 		  <comp>
-				<span>aaaaaa</span>
+				 <template v-slot:default="slotProps">
+					{{ slotProps.text }}
+				</template>
 			</comp>
 		</div>
 	</template>
@@ -24,56 +26,20 @@
 <script src="../modules/vue.js"></script>
 <script>
 Vue.component('comp',{
-  inheritAttrs:false,
-	props:['val'],
   template:`
 	  <div>
 			<div class='aa'>
-			  <slot>fffffff</slot>
+			  <slot text='aaabbb'>
+				  <span>默认值</span>
+				</slot>
 			</div>
 		</div>
 	`,
-	mounted(){
-	  //console.log(this.$attrs,this.$listeners)
-	}
 })
 
 let vm=new Vue({
   el:"#app",
 	template:'#temp',
-	data(){
-	  return {
-		  posts:[
-			  {title:'a',content:`aaaaa`},
-				{title:'b',content:`bbbbb`},
-				{title:'c',content:`ccccc`},
-			],
-			fontSize:2,
-			val:'ttt'
-		}
-	},
-	computed:{
-	  
-	},
-	watch:{
-		val(newVal){
-		  console.log(newVal)
-		}
-	},
-	methods:{
-	  fn(){
-		  console.log(11)
-		}
-	},
-	beforeMount(){
-	  //this.a=44
-	},
-	mounted(){
-	  //this.a=33
-	},
-	updated(){
-	  //console.log('updated')
-	}
 })
 </script>
 </body>

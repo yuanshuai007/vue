@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<!--
+https://www.jianshu.com/p/b12d0d3ad4c1
+
+1.浏览器每次执行回调函数的时候，都会查询是否有prevent
+2.passive就是告诉浏览器，没有prevent,不用查询，从而提高性能
+3.常用于scroll,touchmove
+-->
+<div id='app'>
+	<template id='temp'>
+		<div style='height:100px;width:100px;overflow-y: scroll;'
+		  @scroll='fn'
+		>
+			kkkk<br>
+			kkkk<br>
+			kkkk<br>
+			kkkk<br>
+			kkkk<br>
+			kkkk<br>
+			kkkk<br>
+			kkkk<br>
+      kkkk<br>
+			kkkk<br>
+      kkkk<br>
+			kkkk<br>
+		</div>
+	</template>
+</div>
+
+<script src="../../vue.js"></script>
+<script src="../../modules/lodash.debounce.js"></script>
+<script>
+function fn1(){
+  setTimeout(()=>{console.log(111)},2000)
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	methods:{
+	  fn:debounce(fn1,250),
+		fn2(){
+		  console.log(this.fn1)
+		}
+	}
+})
+
+</script>
+
+</body>
+</html>

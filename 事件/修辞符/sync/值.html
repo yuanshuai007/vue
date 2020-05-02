@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<!--
+1.触发更新事件,进行赋值
+2.v-on:update:title="doc.title = $event"
+-->
+<div id='app'>
+	<template id='temp'>
+		<div >
+			<aa :title.sync='title'></aa>
+			<div id="" class="">
+				{{title}}
+			</div>
+		</div>
+	</template>
+</div>
+
+<script src="../../../vue.js"></script>
+<script>
+function btn(h,value,handle){
+  return h('button',{
+	  on:{
+		  'click':handle
+		}
+	},value)
+}
+const aa={
+  props:['title'],
+	data(){
+	  return {val:'来自子元素'}
+	},
+  methods:{
+	  handle(){
+		  this.$emit('update:title',this.val)
+		}
+	},
+  render(h){
+	  return h('div',[
+		  btn(h,'子组件向父组件传值',this.handle)
+		])
+	}
+}
+const vm=new Vue({
+  el:"#app",
+	template:'#temp',
+	components:{aa},
+	data(){
+	  return {
+		  title:'父组件的初始值'
+		}
+	},
+	watch:{
+	  title(a,b){
+		  console.log(a,b)
+		}
+	},
+})
+
+</script>
+
+</body>
+</html>

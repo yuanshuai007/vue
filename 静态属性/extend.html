@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<!--
+***vue的运行机制
+1.模板和(vue/组件)实例进行挂钩---实例可以操作模板
+2.把模板装进文档(document)
+
+(1)vm.$mount('#app')经过测试，这条代码等价于下面的代码
+vm.$mount()
+document.getElementById('app').appendChild(vm.$el)
+
+(2)document.body.appendChild(vm.$el)
+-->
+
+<script src="../vue.js"></script>
+<script>
+let cls=Vue.extend({
+  data(){
+	  return {
+		  msg:'',
+			visible:'none'
+		}
+	},
+  render(h){
+	  const that=this;
+	  return h('div',{
+		  style:{
+			  display:that.visible
+			}
+		},[this.msg])
+	},
+	methods:{
+	  fn_msg(msg){
+		  this.msg=msg;
+			this.visible='block';
+		},
+		remove(){
+		  this.$el.remove();
+		}
+	}
+})
+const vm=new cls()
+vm.$mount();
+document.body.append(vm.$el)
+
+//在控制台中
+//vm.fn_msg('aaa')
+</script>
+
+</body>
+</html>
