@@ -18,7 +18,7 @@
   "homepage": "https://github.com/yuanshuai007/vue---study#readme",
   "dependencies": {
     "axios": "^0.19.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pikaday": "^1.8.0",
     "view-design": "^4.0.2",
     "vue": "^2.6.11",
