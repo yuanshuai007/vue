@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/yuanshuai007/vue---study#readme",
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "lodash": "^4.17.15",
     "pikaday": "^1.8.0",
     "view-design": "^4.0.2",
